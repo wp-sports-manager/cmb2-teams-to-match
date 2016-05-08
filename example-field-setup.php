@@ -7,7 +7,7 @@
  * Get the bootstrap! If using as a plugin, REMOVE THIS!
  */
 require_once WPMU_PLUGIN_DIR . '/cmb2/init.php';
-require_once WPMU_PLUGIN_DIR . '/cmb2-attached-posts/cmb2-attached-posts-field.php';
+require_once WPMU_PLUGIN_DIR . '/cmb2-teams-to-match/cmb2-attached-teams-match.php';
 
 /**
  * Define the metabox and field configurations.

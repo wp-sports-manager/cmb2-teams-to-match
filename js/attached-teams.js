@@ -1,17 +1,20 @@
 /**
  * Add the drag and drop and sort functionality to the Tiered Template admin
  */
-window.CMBAP = window.CMBAP || (function(window, document, $, undefined) {
+
+console.log(window.CMBAT);
+window.CMBAT = window.CMBAT || (function(window, document, $, undefined) {
 
 	var app = { $ : {} };
 
 	app.cache = function() {
-		var $wrap                = $( '.attached-posts-wrap' );
+		var $wrap                = $( '.attached-teams-wrap' );
 		app.$.retrievedPosts     = $wrap.find( '.retrieved' );
 		app.$.attachedPosts      = $wrap.find( '.attached' );
 	};
 
 	app.init = function() {
+
 		app.cache();
 
 		// Allow the user to drag items from the left list
@@ -26,7 +29,10 @@ window.CMBAP = window.CMBAP || (function(window, document, $, undefined) {
 		app.$.attachedPosts.droppable({
 			accept: '.retrieved li',
 			drop: function(evt, ui) {
+
+				if( app.$.attachedPosts.find('li').length != 0 ) return false;
 				app.buildItems( ui.draggable );
+
 			}
 		}).sortable({
 			stop: function( evt, ui ) {
@@ -36,18 +42,18 @@ window.CMBAP = window.CMBAP || (function(window, document, $, undefined) {
 
 		$( '.cmb2-wrap > .cmb2-metabox' )
 			// Add posts when the plus icon is clicked
-			.on( 'click', '.attached-posts-wrap .retrieved .add-remove', app.addPostToColumn )
+			.on( 'click', '.attached-teams-wrap .retrieved .add-remove', app.addPostToColumn )
 			// Remove posts when the minus icon is clicked
-			.on( 'click', '.attached-posts-wrap .attached .add-remove', app.removePostFromColumn )
+			.on( 'click', '.attached-teams-wrap .attached .add-remove', app.removePostFromColumn )
 			// Listen for search events
-			.on( 'keyup', '.attached-posts-wrap input.search', app.handleSearch );
+			.on( 'keyup', '.attached-teams-wrap input.search', app.handleSearch );
 
 	};
 
 	// Clone our dragged item
 	app.buildItems = function( item ) {
 
-		var $wrap  = $( item ).parents( '.attached-posts-wrap' );
+		var $wrap  = $( item ).parents( '.attached-teams-wrap' );
 		// Get the ID of the item being dragged
 		var itemID = item[0].attributes[0].value;
 
@@ -69,7 +75,7 @@ window.CMBAP = window.CMBAP || (function(window, document, $, undefined) {
 
 		var $li    = $( this ).parent();
 		var itemID = $li.data( 'id' );
-		var $wrap  = $li.parents( '.attached-posts-wrap' );
+		var $wrap  = $li.parents( '.attached-teams-wrap' );
 
 		if ( $li.hasClass( 'added' ) ) {
 			return;
@@ -95,7 +101,7 @@ window.CMBAP = window.CMBAP || (function(window, document, $, undefined) {
 		// Get the clicked item's ID
 		var $li    = $(this).closest( 'li' );
 		var itemID = $li.data( 'id' );
-		var $wrap  = $li.parents( '.attached-posts-wrap' );
+		var $wrap  = $li.parents( '.attached-teams-wrap' );
 
 		// Remove the list item
 		$(this).parent().remove();
@@ -141,7 +147,7 @@ window.CMBAP = window.CMBAP || (function(window, document, $, undefined) {
 	// Re-order items when items are dragged
 	app.resetItems = function( item ) {
 		var $li = $( item );
-		app.resetAttachedListItems( $li.parents( '.attached-posts-wrap' ) );
+		app.resetAttachedListItems( $li.parents( '.attached-teams-wrap' ) );
 	};
 
 	// Replace the plus icon in the attached posts column

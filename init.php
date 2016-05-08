@@ -2,12 +2,12 @@
 /**
  * Class WDS_CMB2_Attached_Posts_Field
  */
-class WDS_CMB2_Attached_Posts_Field {
+class WDS_CMB2_Attached_Teams_Match {
 
 	/**
 	 * Current version number
 	 */
-	const VERSION = CMB2_ATTACHED_POSTS_FIELD_VERSION;
+	const VERSION = CMB2_ATTACHED_TEAMS_MATCH_VERSION;
 
 	/**
 	 * @var WDS_CMB2_Attached_Posts_Field
@@ -31,8 +31,8 @@ class WDS_CMB2_Attached_Posts_Field {
 	 * Initialize the plugin by hooking into CMB2
 	 */
 	protected function __construct() {
-		add_action( 'cmb2_render_custom_attached_posts', array( $this, 'render' ), 10, 5 );
-		add_action( 'cmb2_sanitize_custom_attached_posts', array( $this, 'sanitize' ), 10, 2 );
+		add_action( 'cmb2_render_custom_teams_match', array( $this, 'render' ), 10, 5 );
+		add_action( 'cmb2_sanitize_custom_teams_match', array( $this, 'sanitize' ), 10, 2 );
 	}
 
 	/**
@@ -87,11 +87,11 @@ class WDS_CMB2_Attached_Posts_Field {
 		$count = 0;
 
 		// Wrap our lists
-		echo '<div class="attached-posts-wrap widefat" data-fieldname="'. $field_type->_name() .'">';
+		echo '<div class="attached-teams-wrap widefat" data-fieldname="'. $field_type->_name() .'">';
 
 		// Open our retrieved, or found posts, list
 		echo '<div class="retrieved-wrap column-wrap">';
-		echo '<h4 class="attached-posts-section">' . sprintf( __( 'Available %s', 'cmb' ), $post_type_labels ) . '</h4>';
+		echo '<h4 class="attached-posts-section">' . sprintf( __( 'Available %s', 'wp-sports-manager' ), $post_type_labels ) . '</h4>';
 
 		// Set .has_thumbnail
 		$has_thumbnail = $field->options( 'show_thumbnails' ) ? ' has-thumbnails' : '';
@@ -153,7 +153,7 @@ class WDS_CMB2_Attached_Posts_Field {
 			'desc'  => '',
 		) );
 
-		echo '</div><!-- .attached-posts-wrap -->';
+		echo '</div><!-- .attached-teams-wrap -->';
 
 		// Display our description if one exists
 		$field_type->_desc( true, true );
@@ -217,7 +217,7 @@ class WDS_CMB2_Attached_Posts_Field {
 	 * Enqueue admin scripts for our attached posts field
 	 */
 	protected function setup_admin_scripts() {
-		$dir = CMB2_ATTACHED_POSTS_FIELD_DIR;
+		$dir = CMB2_ATTACHED_TEAMS_MATCH_DIR;
 
 		if ( 'WIN' === strtoupper( substr( PHP_OS, 0, 3 ) ) ) {
 			// Windows
@@ -234,7 +234,7 @@ class WDS_CMB2_Attached_Posts_Field {
 		}
 
 		$url = set_url_scheme( $url );
-		$url = apply_filters( 'cmb2_attached_posts_field_assets_url', $url );
+		$url = apply_filters( 'cmb2_teams_match_field_assets_url', $url );
 
 		$requirements = array(
 			'jquery-ui-core',
@@ -245,8 +245,8 @@ class WDS_CMB2_Attached_Posts_Field {
 			'jquery-ui-sortable',
 		);
 
-		wp_enqueue_script( 'cmb2-attached-posts-field', $url . 'js/attached-posts.js', $requirements, self::VERSION, true );
-		wp_enqueue_style( 'cmb2-attached-posts-field', $url . 'css/attached-posts-admin.css', array(), self::VERSION );
+		wp_enqueue_script( 'cmb2-attached-teams-match-style', $url . 'js/attached-teams.js', $requirements, self::VERSION, true );
+		wp_enqueue_style( 'cmb2-attached-teams-match-script', $url . 'css/attached-teams-admin.css', array(), self::VERSION );
 	}
 }
-WDS_CMB2_Attached_Posts_Field::get_instance();
+WDS_CMB2_Attached_Teams_Match::get_instance();
